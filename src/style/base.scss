@@ -1,0 +1,15 @@
+$bd-bg: pink;
+$h1-bg: red;
+body{
+  display: flex;
+  background: $bd-bg;
+  h1{
+    background: $h1-bg;
+  }
+}
+.logo{
+  background: url('../assets/logo.png') no-repeat;
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+}

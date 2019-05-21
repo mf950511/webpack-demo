@@ -1,6 +1,7 @@
 const path = require('path')
-module.exports = {
-  entry: './src/index.js',
+const merge = require('webpack-merge')
+const baseWebpackConfig = require('./webpack.base.config.js')
+module.exports = merge(baseWebpackConfig, {
   mode: 'development',
   output: {
     filename: 'bundle.js',
@@ -21,14 +22,17 @@ module.exports = {
             }
           },
           {
-            loader: 'postcss-loader',
+            loader: 'postcss-loader',// 为各大浏览器加前缀
             options: {
               ident: 'postcss',
               sourceMap: true,
               plugins: loaders => [
                 require('autoprefixer')({
                   browsers: [
-                    ' > 0.15% in CN '
+                    'last 10 Chrome version',
+                    'last 5 Firefox version',
+                    'Safari >= 6',
+                    'ie > 8'
                   ]
                 })
               ]
@@ -41,7 +45,7 @@ module.exports = {
             }
           }
         ]
-      }
+      },
     ]
   }
-}
+})
