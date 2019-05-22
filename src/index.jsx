@@ -1,6 +1,13 @@
 import _ from 'lodash'
 import './style/base.scss'
 import './style/reset.css'
+require.ensure(['./a.js'], (require) => {})
+import React from 'react'
+import ReactDOM from 'react-dom'
+ReactDOM.render(
+  <h1>我是react元素</h1>,
+  document.querySelector('#app')
+)
 function create_div_element() {
   const div_element = document.createElement('div')
   div_element.innerHTML = _.join(['kobe', 'cpul'], "  ")

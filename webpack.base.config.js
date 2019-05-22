@@ -1,10 +1,20 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const VueLoader = require('vue-loader/lib/plugin')
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    react: './src/index.jsx',
+    vue: './src/main.js'
+  },
   module: {
     rules: [
+      // vue文件编译
+      {
+        test: /\.vue$/,
+        exclude: /node_modules/,
+        loader: 'vue-loader'
+      },
       // 字体文件处理
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -52,16 +62,28 @@ module.exports = {
             }
           }
         ]
+      },
+      // babel配置
+      {
+        test: /\.js[x]?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
       }
     ]
+  },
+  resolve: {
+    extensions: ['.js', '.vue', '.json', '.jsx'],
+    alias: {
+      "@": path.resolve(__dirname, 'src/')
+    }
   },
   plugins: [
     // 清除dist文件夹
     new CleanWebpackPlugin(),
     // 打包模板
     new HtmlWebpackPlugin({ // 自动引入文件链接
-      inject: true,
-      hash: true,
+      inject: true, 
+      hash: true, //为静态资源生成hash值
       cache: true,
       chunksSortMode: 'none',
       title: 'webpack4-demo',
@@ -75,5 +97,12 @@ module.exports = {
         removeStyleLinkTypeAttributes: true
       }
     }),
-  ]
+    // vue加载
+    new VueLoader()
+  ],
+  optimization: {
+    splitChunks:{ //启动代码分割，有默认配置项
+      chunks: 'all'
+    }
+  },
 }

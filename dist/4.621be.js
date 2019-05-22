@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{23:function(e,n){let o=document.createElement("p");o.innerHTML="哈哈哈,我是p哦",document.querySelector(".logo").appendChild(o)}}]);
