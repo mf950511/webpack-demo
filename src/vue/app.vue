@@ -18,6 +18,7 @@ export default {
 }
 </script>
 
+
 <style lang="sass" scoped>
 .vue{
   background: #00f;
